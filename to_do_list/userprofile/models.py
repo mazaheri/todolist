@@ -13,6 +13,7 @@ class Category(models.Model):
         verbose_name = "Category"
         verbose_name_plural = 'Categories'
 
+
 class Task(models.Model):
     user = models.ForeignKey(User, related_name='task', on_delete=models.CASCADE)
     title = models.CharField(max_length=70)
@@ -25,3 +26,4 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
+
