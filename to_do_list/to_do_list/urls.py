@@ -23,10 +23,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('userprofile/', include('userprofile.urls')),
     # API authentication and Tokenize:
-    path('api-auth/', include('rest_framework.urls')),
-    path('api/login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('api-auth/v1', include('rest_framework.urls')),
+    path('api/v1/login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     # Task API
-    path('api/all_tasks/', include('userprofile.api_urls')),
+    path('api/v1/', include('userprofile.api_urls')),
 ]

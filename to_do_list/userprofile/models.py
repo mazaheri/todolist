@@ -27,6 +27,6 @@ class Task(models.Model):
     is_done = models.BooleanField(default=False)
     category = models.ForeignKey(Category, related_name='task', on_delete=models.SET_NULL, null=True, blank=True)
 
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return self.title
 
