@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+from datetime import timedelta
+
 from local_settings import *
 from pathlib import Path
 
@@ -40,7 +42,18 @@ INSTALLED_APPS = [
 
     'userprofile.apps.UserprofileConfig',
     'rest_framework',
+    'rest_framework_simplejwt',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=5),  # Set the access token lifetime to 1 hour
+    # ... other SimpleJWT settings ...
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
