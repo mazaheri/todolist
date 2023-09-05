@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from userprofile.models import Task, Category
-from userprofile.serializer import TasksSerializer, TaskViewSerializer
+from userprofile.serializer import TasksSerializer, TaskViewSerializer, UpdateTaskSerializer
 
 
 class TaskListAPI(ListCreateAPIView):
@@ -37,32 +37,14 @@ class TaskViewAPI(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk):
-        try:
-            obj = get_object_or_404(Task, pk=pk)
-            obj.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except Task.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+        obj = get_object_or_404(Task, pk=pk, user=request.user)
+        obj.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
+    def put(self, request, pk):
+        task = get_object_or_404(Task, pk=pk, user=request.user)
+        serializer = UpdateTaskSerializer(task, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(self.serializer_class(instance=task).data, status=status.HTTP_200_OK)
 
-
-    # def delete(self, request, pk):
-    #     obj = get_object_or_404(Task, pk=pk, user=request.user)
-    #     obj.delete()
-    #     return Response(status=status.H)
-
-
-
-
-    # def valid_categories(self):
-    #     user = self.request.user
-    #     valid_categories = Category.objects.filter(user=user).values('title')
-    #     return valid_categories
-
-
-
-    # def get_serializer_context(self):
-    #     # Include valid_categories in the context
-    #     context = super().get_serializer_context()
-    #     context['valid_categories'] = self.valid_categories()
-    #     return context
