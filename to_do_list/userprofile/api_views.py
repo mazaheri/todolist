@@ -30,10 +30,6 @@ class TaskViewAPI(APIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = TaskViewSerializer
     # queryset = Task.objects.all()
-    #
-    #
-    # def get_queryset(self):
-    #     return Task.objects.filter(user=self.request.user)
 
     def get(self, request, pk):
         obj = get_object_or_404(Task, pk=pk, user=request.user)
@@ -41,9 +37,19 @@ class TaskViewAPI(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk):
-        obj = get_object_or_404(Task, pk=pk, user=request.user)
-        obj.delete()
-        return Response(status=status.H)
+        try:
+            obj = get_object_or_404(Task, pk=pk)
+            obj.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Task.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+    # def delete(self, request, pk):
+    #     obj = get_object_or_404(Task, pk=pk, user=request.user)
+    #     obj.delete()
+    #     return Response(status=status.H)
 
 
 

@@ -54,7 +54,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend'),
 }
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=5),  # Set the access token lifetime to 1 hour
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=10),  # Set the access token lifetime to 1 hour
     # ... other SimpleJWT settings ...
 }
 

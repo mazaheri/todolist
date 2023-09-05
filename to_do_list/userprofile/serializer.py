@@ -9,20 +9,21 @@ class TasksSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(source='category.title', read_only=True)
     username = serializers.ReadOnlyField(source='user.username')
     url = serializers.HyperlinkedIdentityField(view_name='single-task')
+    task_id = serializers.ReadOnlyField(source='pk')
+
 
     class Meta:
         model = Task
-        fields = ('user', 'username','title', 'description', 'deadline', 'is_done', 'category_name', 'created_at'
+        fields = ('task_id','user', 'username','title', 'description', 'deadline', 'is_done', 'category_name', 'created_at'
                   , 'updated_at', 'url')
 
 
 class TaskViewSerializer(serializers.ModelSerializer):
-    # category = serializers.ChoiceField(choices=[])
+    task_id = serializers.ReadOnlyField(source='pk')
+    category_name = serializers.CharField(source='category.title', read_only=True)
+    username = serializers.ReadOnlyField(source='user.username')
     class Meta:
         model = Task
-        fields = ('user', 'title', 'description', 'deadline', 'is_done', 'category')
-
-    # def __init__(self, *args, **kwargs):
-    #     valid_categories = kwargs.pop('valid_categories', [])
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['category'].choices = [(cat, cat) for cat in valid_categories]
+        fields = (
+        'task_id', 'user', 'username', 'title', 'description', 'deadline', 'is_done', 'category_name', 'created_at'
+        , 'updated_at')
