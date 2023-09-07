@@ -1,7 +1,8 @@
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework.response import Response
 from datetime import datetime
+
 import jwt  # Import the JWT library
+from rest_framework_simplejwt.views import TokenObtainPairView
+
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
@@ -28,5 +29,5 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 response.data['expires_in_seconds'] = remaining_seconds
 
                 # Convert remaining lifetime to seconds
-                response.data['total_expiretime_in_seconds'] = int(remaining_lifetime)
+                response.data['total_expiration_in_seconds'] = int(remaining_lifetime)
         return response

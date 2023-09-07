@@ -1,8 +1,5 @@
-from urllib import request
-
-from django.db import models
 from django.contrib.auth.models import User
-# Create your models here.
+from django.db import models
 
 
 class Category(models.Model):
@@ -26,7 +23,3 @@ class Task(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_done = models.BooleanField(default=False)
     category = models.ForeignKey(Category, related_name='task', on_delete=models.SET_NULL, null=True, blank=True)
-
-    # def __str__(self):
-    #     return self.title
-

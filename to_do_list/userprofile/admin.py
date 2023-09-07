@@ -1,6 +1,6 @@
 from django.contrib import admin
+
 from userprofile.models import Category, Task
-# Register your models here.
 
 
 class CategoryAdmin(admin.ModelAdmin):
