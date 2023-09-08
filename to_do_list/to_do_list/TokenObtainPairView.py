@@ -23,7 +23,6 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
                 remaining_minutes = remaining_lifetime // 60
                 remaining_seconds = int(remaining_lifetime % 60)
-
                 # Add 'expires_in_minutes' and 'expires_in_seconds' to the response data
                 response.data['expires_in_minutes'] = int(remaining_minutes)
                 response.data['expires_in_seconds'] = remaining_seconds

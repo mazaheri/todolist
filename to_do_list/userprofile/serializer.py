@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from userprofile.models import Task
@@ -40,3 +41,9 @@ class UpdateTaskSerializer(serializers.Serializer):
             setattr(instance, key, validated_data.get(key))
         instance.save()
         return instance
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'id']
